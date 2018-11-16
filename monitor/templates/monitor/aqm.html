@@ -1,0 +1,323 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}空氣品質監測 | {{ block.super }}{% endblock title %}
+
+{% block nav2 %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'aqm' %}"><strong>空氣品質監測</strong></a>
+    </li>
+{% endblock nav2 %}
+
+{% block main %}
+{{ block.super }}
+<div class="introduce-bg2 introduce-mid">
+    <h1><span class="badge" style="background-color:#45455d;">空氣品質監測</span></h1>
+    
+    <ul class="nav nav-pills mt-3 mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-tab-1" data-toggle="pill" href="#pills-1" role="tab">懸浮微粒</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-tab-2" data-toggle="pill" href="#pills-2" role="tab">VOC</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-tab-3" data-toggle="pill" href="#pills-3" role="tab">MQ-135</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-tab-4" data-toggle="pill" href="#pills-4" role="tab">MQ-9</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-1" role="tabpanel">
+            <div>
+                PMSA003粉塵感測器，使用雷射對pm1.0、pm2.5、pm10粉塵進行感測、
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 id="pm01_num">25</h4>
+                                        <p class="mb-0">PM 0.1</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <canvas id="chart_pm01"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 id="pm25_num">50</h4>
+                                        <p class="mb-0">PM 2.5</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <canvas id="chart_pm25"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 id="pm10_num">100</h4>
+                                        <p class="mb-0">PM 10</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <canvas id="chart_pm10"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+        
+                <div class="row">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card bg-dark">
+                            <div class="card-header">
+                                <h5>空氣品質 - 懸浮微粒</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-2" role="tabpanel">
+            TGS2602氣體感測器對VOC(揮發性有機化合物)、酒精、氨氣的靈敏度高。
+        </div>
+
+        <div class="tab-pane fade" id="pills-3" role="tabpanel">
+            MQ135氣體感測器對氨氣、硫化物、苯系蒸汽的靈敏度高，對煙霧和其他有害的監測也很理想。 
+        </div>
+
+        <div class="tab-pane fade" id="pills-4" role="tabpanel">
+            MQ-9 氣體感測器對一氧化碳、甲烷、液化氣的靈敏度高。
+        </div>
+    </div>
+    
+    
+
+    
+
+</div>
+
+{% endblock main %}
+
+
+{% block script %}
+{{ block.super }}
+<script>
+
+
+</script>
+
+<script>
+    var airData = {{airData|safe}};
+    console.log(airData)
+
+    var pm_date_list=[], pm01_list=[], pm25_list=[], pm10_list=[];
+    for (var i = 0; i < airData.length; i++) {
+        pm_date_list.push(airData[i].creation_date);
+        pm01_list.push(airData[i].pm01);
+        pm25_list.push(airData[i].pm25);
+        pm10_list.push(airData[i].pm10);
+    }
+
+    var pm01_now = pm01_list[pm01_list.length - 1];
+    var pm25_now = pm25_list[pm25_list.length - 1];
+    var pm10_now = pm10_list[pm10_list.length - 1];
+    $("#pm01_num").html(pm01_now);
+    $("#pm25_num").html(pm25_now);
+    $("#pm10_num").html(pm10_now);
+
+    var pm25_color = "#000000";
+    if (pm25_now <= 11)
+        pm25_color = "#90EE90";
+    else if (pm25_now <= 23)
+        pm25_color = "#00FF00";
+    else if (pm25_now <= 35)
+        pm25_color = "#008000";
+    else if (pm25_now <= 41)
+        pm25_color = "#FFFF00";
+    else if (pm25_now <= 47)
+        pm25_color = "#FFCC66";
+    else if (pm25_now <= 53)
+        pm25_color = "#FFA500";
+    else if (pm25_now <= 58)
+        pm25_color = "#FFA500";
+    else if (pm25_now <= 64)
+        pm25_color = "#FFA500";
+    else if (pm25_now <= 70)
+        pm25_color = "#FFA500";
+    else
+        pm25_color = "#FF00FF";
+
+    if (pm25_now > 100) {
+        pm25_now = 100
+    }
+    
+    var pm10_color = "#000000";
+    if (pm10_now <= 16)
+        pm10_color = "#90EE90";
+    else if (pm10_now <= 33)
+        pm10_color = "#00FF00";
+    else if (pm10_now <= 50)
+        pm10_color = "#008000";
+    else if (pm10_now <= 58)
+        pm10_color = "#FFFF00";
+    else if (pm10_now <= 66)
+        pm10_color = "#FFCC66";
+    else if (pm10_now <= 75)
+        pm10_color = "#FFA500";
+    else if (pm10_now <= 83)
+        pm10_color = "#FFA500";
+    else if (pm10_now <= 91)
+        pm10_color = "#FFA500";
+    else if (pm10_now <= 100)
+        pm10_color = "#FFA500";
+    else
+        pm10_color = "#FF00FF";
+
+    if (pm10_now > 120) {
+        pm10_now = 120
+    }
+
+    var ctx01 = document.getElementById("chart_pm01");
+    var airChart = new Chart(ctx01, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: "PM 0.1",
+                data: [pm01_now,100-pm01_now],
+                backgroundColor: ["rgb(255, 255, 255)", "rgb(150, 150, 150)"],
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            rotation: 0.5 * Math.PI,
+            legend: {
+                display: false,
+            },
+            tooltips: {
+                enabled: false,
+            }
+        }
+    });
+    var ctx25 = document.getElementById("chart_pm25");
+    var airChart = new Chart(ctx25, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: "PM 2.5",
+                data: [pm25_now,100-pm25_now],
+                backgroundColor: [pm25_color,"rgb(150, 150, 150)"],
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            rotation: 0.5 * Math.PI,
+            legend: {
+                display: false,
+            },
+            tooltips: {
+                enabled: false,
+            }
+        }
+    });
+    var ctx10 = document.getElementById("chart_pm10");
+    var airChart = new Chart(ctx10, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: "PM 10",
+                data: [pm10_now,120-pm10_now],
+                backgroundColor: [pm10_color, "rgb(150, 150, 150)"],
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            rotation: 0.5 * Math.PI,
+            legend: {
+                display: false,
+            },
+            tooltips: {
+                enabled: false,
+            }
+        }
+    });
+    
+
+    
+    var ctx = document.getElementById("myChart");
+    var airChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: pm_date_list,
+            datasets: [{
+                label: "pm 0.1",
+                data: pm01_list,
+                backgroundColor: "rgba(50, 255, 100, 0.3)",
+                borderColor: "rgba(50,255,100,1)",
+                fill: "start",
+                lineTension: 0,
+            }, {
+                label: "pm 2.5",
+                data: pm25_list,
+                backgroundColor: "rgba(50, 150, 255, 0.3)",
+                borderColor: "rgba(50,150,255,1)",
+                fill: "start",
+                lineTension: 0,
+            }, {
+                label: "pm 10",
+                data: pm10_list,
+                backgroundColor: "rgba(255, 150, 50, 0.3)",
+                borderColor: "rgba(255,150,50,1)",
+                fill: "start",
+                lineTension: 0,
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#CCCCCC",
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        fontColor: "#CCCCCC",
+                    },
+                }],
+            },
+            legend: {
+                labels: {
+                    fontColor: "#CCCCCC",
+                }
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+        }
+    });
+
+</script>
+
+{% endblock script %}

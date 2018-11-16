@@ -1,0 +1,71 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}水族生態 | {{ block.super }}{% endblock title %}
+
+{% block nav3 %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'aquarium' %}"><strong>水族生態</strong></a>
+    </li>
+{% endblock nav3 %}
+
+{% block head %}
+{{ block.super }}
+<style>
+    iframe {
+        -ms-zoom: 0.7;
+        -ms-transform: scale(0.7);  /* ie */
+        -ms-transform-origin:0 0;
+        -moz-transform: scale(0.7);  /* firefox */
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.7);  /* opera */
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.7);  /* chrome */
+        -webkit-transform-origin: 0 0;
+    }
+    .iframe1 {
+        width: 645px;
+        height:485px;
+    }
+</style>
+{% endblock head %}
+
+{% block main %}
+{{ block.super }}
+<div class="introduce-bg2 introduce-mid">
+    <h1><span class="badge" style="background-color:#45455d;">水族生態</span></h1>
+
+    
+    <div class="row ml-2 mt-4">
+        <div class="col-lg-6">
+            <div class="row">
+                <h5>魚缸 - 恐龍魚</h5>
+            </div>
+            <div class="row iframe1">
+                <iframe src="http://140.125.32.123:8082/?action=stream" width="640" height="480" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <div class="col-lg-1 mt-4">
+            <!-- <div class="btn-group-vertical" role="group"> -->
+                <form action="" method="post" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-info" name="led" value="on">開啟照明</button>
+                </form>
+                <form action="" method="post" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-info" name="led" value="off">關閉照明</button>
+                </form>
+            <!-- </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock main %}
+
+
+{% block script %}
+{{ block.super }}
+
+{% endblock script %}

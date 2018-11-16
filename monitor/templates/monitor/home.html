@@ -1,0 +1,116 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}Home | {{ block.super }}{% endblock title %}
+
+{% block nav1 %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}"><strong>總覽</strong></a>
+    </li>
+{% endblock nav1 %}
+
+{% block main %}
+{{ block.super }}
+<div class="introduce-bg2 introduce-mid">
+        <h1><span class="badge" style="background-color:#45455d;">Home</span></h1>
+        
+        
+
+        <div class="card-columns">
+            
+            <div class="card bg-dark">
+                <h5 class="card-header">Featured</h5>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card bg-dark">
+                <h5 class="card-header">Featured</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card text-center bg-dark">
+                <h5 class="card-header">Featured2</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card bg-dark">
+                <h5 class="card-header">Featured3</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card text-center bg-dark">
+                <h5 class="card-header">Featured4</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            
+        </div>
+    
+    </div>
+
+
+
+{% endblock main %}
+
+
+{% block script %}
+{{ block.super }}
+
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: 'My First dataset',
+                data: [12, 19, 3, 8, 2, 3],
+                backgroundColor: 'rgba(50, 255, 100, 0.3)',
+                borderColor: 'rgba(50,255,100,1)',
+                fill: 'start',
+                lineTension: 0,
+            }, {
+                label: 'My Second dataset',
+                data: [1, 2, 3, 8, 5, 5],
+                backgroundColor: 'rgba(50, 150, 255, 0.3)',
+                borderColor: 'rgba(50,150,255,1)',
+                fill: 'start',
+                lineTension: 0,
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            },
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+        }
+    });
+</script>
+
+{% endblock script %}
+
+
