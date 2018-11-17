@@ -4,13 +4,21 @@ import requests
 from bs4 import BeautifulSoup
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from monitor.models import AirData
+
 from django.core.serializers.json import DjangoJSONEncoder
+from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 
+from monitor.models import AirData
 
 # 首頁
 def home(request):
+    airData = AirData.objects.all().order_by('-creation_date')
+    date_time = list(airData.values())
+    for i in date_time:
+        i["creation_date"] = timezone.localtime(i["creation_date"])
+
+    airData = json.dumps(date_time, cls=DjangoJSONEncoder)
     return render(request, 'monitor/home.html', locals())
 
 # 空氣品質監測
@@ -36,6 +44,7 @@ def aquarium(request):
 
 
 # 上傳POST空氣品質資料
+@csrf_exempt
 def upload_air(request):
     if 'pm25' in request.POST:
         pm01 = request.POST['pm01']

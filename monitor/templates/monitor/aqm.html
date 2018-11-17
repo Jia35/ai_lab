@@ -15,22 +15,30 @@
     
     <ul class="nav nav-pills mt-3 mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="pills-tab-1" data-toggle="pill" href="#pills-1" role="tab">懸浮微粒</a>
+            <a class="nav-link active" id="pills-tab-1" data-toggle="pill" href="#pills-1" title="PMSA003粉塵感測器，使用雷射對pm1.0、pm2.5、pm10粉塵進行感測。">
+                懸浮微粒
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-tab-2" data-toggle="pill" href="#pills-2" role="tab">VOC</a>
+            <a class="nav-link" id="pills-tab-2" data-toggle="pill" href="#pills-2" title="TGS2602氣體感測器對VOC(揮發性有機化合物)、酒精、氨氣的靈敏度高。">
+                VOC
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-tab-3" data-toggle="pill" href="#pills-3" role="tab">MQ-135</a>
+            <a class="nav-link" id="pills-tab-3" data-toggle="pill" href="#pills-3" title="MQ135氣體感測器對氨氣、硫化物、苯系蒸汽的靈敏度高，對煙霧也很理想。">
+                MQ-135
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-tab-4" data-toggle="pill" href="#pills-4" role="tab">MQ-9</a>
+            <a class="nav-link" id="pills-tab-4" data-toggle="pill" href="#pills-4" title="MQ-9 氣體感測器對一氧化碳、甲烷、液化氣的靈敏度高。">
+                MQ-9
+            </a>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
+        <!-- 懸浮微粒 -->
         <div class="tab-pane fade show active" id="pills-1" role="tabpanel">
             <div>
-                PMSA003粉塵感測器，使用雷射對pm1.0、pm2.5、pm10粉塵進行感測、
                 <div class="row mt-4">
                     <div class="col-md-4 mb-3">
                         <div class="card bg-dark">
@@ -89,7 +97,7 @@
                                 <h5>空氣品質 - 懸浮微粒</h5>
                             </div>
                             <div class="card-body">
-                                <canvas id="myChart"></canvas>
+                                <canvas id="myChart" style="height:300px"></canvas>
                             </div>
                         </div>
                     </div>
@@ -103,7 +111,7 @@
         </div>
 
         <div class="tab-pane fade" id="pills-3" role="tabpanel">
-            MQ135氣體感測器對氨氣、硫化物、苯系蒸汽的靈敏度高，對煙霧和其他有害的監測也很理想。 
+            MQ135氣體感測器對氨氣、硫化物、苯系蒸汽的靈敏度高，對煙霧和其他有害的監測也很理想。
         </div>
 
         <div class="tab-pane fade" id="pills-4" role="tabpanel">
@@ -128,8 +136,8 @@
 </script>
 
 <script>
+    // -----懸浮微粒-----
     var airData = {{airData|safe}};
-    console.log(airData)
 
     var pm_date_list=[], pm01_list=[], pm25_list=[], pm10_list=[];
     for (var i = 0; i < airData.length; i++) {
@@ -262,7 +270,6 @@
         }
     });
     
-
     
     var ctx = document.getElementById("myChart");
     var airChart = new Chart(ctx, {
@@ -293,6 +300,7 @@
             }]
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     ticks: {

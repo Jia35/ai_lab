@@ -1,6 +1,6 @@
 {% extends 'monitor/base.html' %}
 
-{% block title %}Home | {{ block.super }}{% endblock title %}
+{% block title %}總覽 | {{ block.super }}{% endblock title %}
 
 {% block nav1 %}
     <li class="nav-item active">
@@ -11,60 +11,103 @@
 {% block main %}
 {{ block.super }}
 <div class="introduce-bg2 introduce-mid">
-        <h1><span class="badge" style="background-color:#45455d;">Home</span></h1>
+        <h1><span class="badge" style="background-color:#45455d;">總覽</span></h1>
         
-        
+ 
 
-        <div class="card-columns">
+        <div class="row mt-4">
+            <div class="col-md-12 mb-3">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <h4>空氣品質 - 懸浮微粒</h4>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <span class="h2" id="pm01_num">20</span> μg/m<sup>3</sup>
+                                <h6 class="mt-1">pm 0.1</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2" id="pm25_num">30</span> μg/m<sup>3</sup>
+                                <h6 class="mt-1">pm 2.5</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2" id="pm10_num">40</span> μg/m<sup>3</sup>
+                                <h6 class="mt-1">pm 10</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2" id="voc_num">30</span> ppm
+                                <h6 class="mt-1">VOC</h6>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-3">
+                                <span class="h2">20</span>
+                                <h6 class="mt-1">MQ-9</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2">30</span>
+                                <h6 class="mt-1">MQ-135</h6>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col text-right">
+                                最後更新時間：<span id="updated">2018-11-17T13:43:14.224+08:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <h4>水族生態</h4>
+                        <h5 class="mt-3">恐龍魚</h5>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="h2">27.7</span> ℃
+                                <h6 class="mt-1">空氣溫度</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2">26.8</span> ℃
+                                <h6 class="mt-1">水中溫度</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2">On</span>
+                                <h6 class="mt-1">LED燈狀態</h6>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4">蝦子</h5>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="h2">27.9</span> ℃
+                                <h6 class="mt-1">空氣溫度</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2">27.0</span> ℃
+                                <h6 class="mt-1">水中溫度</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="h2"> Off </span>
+                                <h6 class="mt-1">LED燈狀態</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col text-right">
+                                最後更新時間：<span id="updated">2018-11-17T13:43:14.224+08:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             
-            <div class="card bg-dark">
-                <h5 class="card-header">Featured</h5>
-                <div class="card-body">
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
             
-            <div class="card bg-dark">
-                <h5 class="card-header">Featured</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
 
-            <div class="card text-center bg-dark">
-                <h5 class="card-header">Featured2</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <div class="card bg-dark">
-                <h5 class="card-header">Featured3</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-
-            <div class="card text-center bg-dark">
-                <h5 class="card-header">Featured4</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            
         </div>
-    
-    </div>
-
-
+        
 
 {% endblock main %}
 
@@ -73,42 +116,15 @@
 {{ block.super }}
 
 <script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: 'My First dataset',
-                data: [12, 19, 3, 8, 2, 3],
-                backgroundColor: 'rgba(50, 255, 100, 0.3)',
-                borderColor: 'rgba(50,255,100,1)',
-                fill: 'start',
-                lineTension: 0,
-            }, {
-                label: 'My Second dataset',
-                data: [1, 2, 3, 8, 5, 5],
-                backgroundColor: 'rgba(50, 150, 255, 0.3)',
-                borderColor: 'rgba(50,150,255,1)',
-                fill: 'start',
-                lineTension: 0,
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            },
-            responsive: true,
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-        }
-    });
+    var airData = {{airData|safe}};
+    airData_new = airData[0];
+    
+    $("#pm01_num").html(airData_new.pm01);
+    $("#pm25_num").html(airData_new.pm25);
+    $("#pm10_num").html(airData_new.pm10);
+    $("#updated").html(airData_new.creation_date);
+    
+    
 </script>
 
 {% endblock script %}

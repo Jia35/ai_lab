@@ -12,19 +12,23 @@
 {{ block.super }}
 <style>
     iframe {
-        -ms-zoom: 0.7;
-        -ms-transform: scale(0.7);  /* ie */
+        -ms-zoom: 0.8;
+        -ms-transform: scale(0.8);  /* ie */
         -ms-transform-origin:0 0;
-        -moz-transform: scale(0.7);  /* firefox */
+        -moz-transform: scale(0.8);  /* firefox */
         -moz-transform-origin: 0 0;
-        -o-transform: scale(0.7);  /* opera */
+        -o-transform: scale(0.8);  /* opera */
         -o-transform-origin: 0 0;
-        -webkit-transform: scale(0.7);  /* chrome */
+        -webkit-transform: scale(0.8);  /* chrome */
         -webkit-transform-origin: 0 0;
     }
     .iframe1 {
         width: 645px;
         height:485px;
+    }
+    .iframe2 {
+        width: 838px;
+        height:630px;
     }
 </style>
 {% endblock head %}
@@ -56,6 +60,18 @@
                     <button type="submit" class="btn btn-info" name="led" value="off">關閉照明</button>
                 </form>
             <!-- </div> -->
+        </div>
+
+    </div>
+
+    <div class="row ml-2 mt-4">
+        <div class="col-lg-6">
+            <div class="row">
+                <h5>魚缸 - 蝦子</h5>
+            </div>
+            <div class="row iframe2">
+                <iframe src="http://140.125.32.121:8082/?action=stream" width="838" height="630" frameborder="0"></iframe>
+            </div>
         </div>
 
     </div>

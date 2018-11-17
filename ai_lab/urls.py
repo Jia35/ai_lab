@@ -26,8 +26,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('aqm/', aqm, name='aqm'),
-    path('upload_air/', upload_air, name='upload_air'),
     path('aquarium/', aquarium, name='aquarium'),
+
+    path('upload_air/', upload_air, name='upload_air'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
