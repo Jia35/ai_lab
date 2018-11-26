@@ -26,6 +26,9 @@ def aqm(request):
     airData = AirData.objects.all().order_by('creation_date')
     date_time = list(airData.values())
     for i in date_time:
+        # tzutc_8 = datetime.timezone(datetime.timedelta(hours=8))
+        # local_dt = i["creation_date"].astimezone(tzutc_8)
+        # print(local_dt)
         i["creation_date"] = timezone.localtime(i["creation_date"])
 
     airData = json.dumps(date_time, cls=DjangoJSONEncoder)
@@ -43,15 +46,21 @@ def aquarium(request):
     return render(request, 'monitor/aquarium.html', locals())
 
 
+def test(request):
+    return render(request, 'monitor/test.html', locals())
+
+
 # 上傳POST空氣品質資料
 @csrf_exempt
 def upload_air(request):
-    if 'pm25' in request.POST:
-        pm01 = request.POST['pm01']
-        pm25 = request.POST['pm25']
-        pm10 = request.POST['pm10']
-        #pm01 = request.POST.get('pm01')
-        airData = AirData(pm01=pm01, pm25=pm25, pm10=pm10)
+    if request.method == 'POST':
+        req = json.loads(request.body)
+        pm1 = req.get('PM1_ATMO')
+        pm25 = req.get('PM25_ATMO')
+        pm10 = req.get('PM10_ATMO')
+        mq9 = req.get('MQ9')
+        mq135 = req.get('MQ135')
+        airData = AirData(pm1=pm1, pm25=pm25, pm10=pm10, mq9=mq9, mq135=mq135)
         airData.save()
         return HttpResponse('upload air data Success!')
     return HttpResponse('upload air data Fail!')

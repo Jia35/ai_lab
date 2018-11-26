@@ -19,7 +19,7 @@ from django.urls import path, re_path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from monitor.views import home, aqm, upload_air, aquarium
+from monitor.views import home, aqm, upload_air, aquarium, test
 
 urlpatterns = [
     re_path(r'^$', home, name='home'),
@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('aqm/', aqm, name='aqm'),
     path('aquarium/', aquarium, name='aquarium'),
+    path('test/', test, name='test'),
 
     path('upload_air/', upload_air, name='upload_air'),
 ]

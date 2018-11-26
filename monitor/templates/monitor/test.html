@@ -1,0 +1,152 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}TEST | {{ block.super }}{% endblock title %}
+
+{% block head %}
+{{ block.super }}
+
+
+{% endblock head %}
+
+
+{% block main %}
+{{ block.super }}
+<div class="introduce-bg2 introduce-mid">
+    <h1><span class="badge" style="background-color:#45455d;">測試頁面</span></h1>
+    <!-- <input type="text" id="datepicker" /> -->
+    <input type="text" id="timepicker" />
+
+
+    <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu">
+            <form class="px-2">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="option1">
+                    <label class="custom-control-label d-flex justify-content-between" for="customRadio1">
+                        <span>今天</span>
+                        <span class="text-muted">11/25</span>
+                    </label>
+                </div>
+
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="option2">
+                    <label class="custom-control-label d-flex justify-content-between" for="customRadio2">
+                        <span>昨天</span>
+                        <span class="text-muted">11/24</span>
+                    </label>
+                </div>
+
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="option3">
+                    <label class="custom-control-label d-flex justify-content-between" for="customRadio3">
+                        <span>自訂</span>
+                        <input id="flatpickr_date" class="flatpickr flatpickr-input" type="text" placeholder="選擇日期...">
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+  
+{% endblock main %}
+
+
+{% block script %}
+{{ block.super }}
+<script>
+    // $("#flatpickr_date").flatpickr(
+    //     {
+    //         mode: "range",
+    //         maxDate: "today",
+    //         dateFormat: "Y-m-d",
+    //         defaultDate: ["2018-11-24", "2018-11-25"],
+    //     },
+    // );
+    const fp = flatpickr("#flatpickr_date", {
+        locale: "zh",
+        mode: "range",
+        maxDate: "today",
+        dateFormat: "Y-m-d",
+        defaultDate: ["2018-11-24", "2018-11-25"],
+
+        onClose:function(selectedDates, dateStr, instance){
+            console.log(selectedDates);
+        }
+    });
+    
+
+
+    var Date_A = new Date(2018,11,24,12,25,0);
+    var Date_B = new Date(2018,11,25,13,45,0);
+
+    var msecPerMinute = 1000 * 60;
+    var msecPerHour = msecPerMinute * 60;
+    var msecPerDay = msecPerHour * 24;
+
+    var interval = Date_B.getTime() - Date_A.getTime();
+
+    var days = Math.floor(interval / msecPerDay );
+    interval = interval - (days * msecPerDay );
+
+    var hours = Math.floor(interval / msecPerHour );
+    interval = interval - (hours * msecPerHour );
+
+    var minutes = Math.floor(interval / msecPerMinute );
+    interval = interval - (minutes * msecPerMinute );
+
+    var seconds = Math.floor(interval / 1000 );
+
+    console.log("差距 " + days + "天 " + hours + "小時 " + minutes + "分 " + seconds + "秒.");
+
+</script>
+
+
+<script>
+    $('#datepicker').pickadate({
+        weekdaysShort: ['日', '一', '二', '三', '四', '五', '六'],
+        showMonthsShort: true,
+        today: '今日',
+        clear: '清除',
+        close: '關閉',
+        selectMonths: true,
+        selectYears: true,
+        format: 'yyyy/mm/dd',
+        formatSubmit: 'yyyy/mm/dd',
+        max: true,
+        onSet: function(context) {
+            console.log($('#datepicker').pickadate('picker').get());
+            var date_ = new Date( $('#datepicker').pickadate('picker').get() );
+            console.log(date_);
+
+            if(Date.parse(date_).valueOf() > Date.parse('2018/11/18 13:30:00').valueOf()) {
+                console.log(">");
+            }
+            else {
+                console.log("<");
+            }
+        }
+        
+    })
+
+    
+    $('#timepicker').pickatime({
+        // interval: 10,
+        formatLabel: function(time) {
+            var hours = ( time.pick - this.get('now').pick ) / 60,
+            label = hours < 0 ? ' !hours to now' : hours > 0 ? ' !hours from now' : 'now'
+            return  'h:i a <sm!all>' + ( hours ? Math.abs(hours) : '' ) + label +'</sm!all>'
+        },
+        onSet: function(context) {
+            console.log($('#timepicker').pickatime('picker').get())
+        }
+    })
+    
+</script>
+    
+{% endblock script %}

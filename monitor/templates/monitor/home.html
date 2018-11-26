@@ -22,8 +22,8 @@
                         <h4>空氣品質 - 懸浮微粒</h4>
                         <div class="row mt-3">
                             <div class="col-md-3">
-                                <span class="h2" id="pm01_num">20</span> μg/m<sup>3</sup>
-                                <h6 class="mt-1">pm 0.1</h6>
+                                <span class="h2" id="pm1_num">20</span> μg/m<sup>3</sup>
+                                <h6 class="mt-1">pm 1.0</h6>
                             </div>
                             <div class="col-md-3">
                                 <span class="h2" id="pm25_num">30</span> μg/m<sup>3</sup>
@@ -119,7 +119,7 @@
     var airData = {{airData|safe}};
     airData_new = airData[0];
     
-    $("#pm01_num").html(airData_new.pm01);
+    $("#pm1_num").html(airData_new.pm1);
     $("#pm25_num").html(airData_new.pm25);
     $("#pm10_num").html(airData_new.pm10);
     $("#updated").html(airData_new.creation_date);
