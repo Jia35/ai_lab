@@ -44,46 +44,17 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4 id="pm1_num">25</h4>
-                                    <p class="mb-0">PM 1.0</p>
-                                    <small>(μg/m<sup>3</sup>)</small>
+                                    <h4 id="now1_num">25</h4>
+                                    <p class="mb-0" id="now1_title">PM 1.0</p>
+                                    <small id="now1_txt">(μg/m<sup>3</sup>)</small>
                                 </div>
                                 <div class="col-md-6">
-                                    <canvas id="chart_pm1"></canvas>
+                                    <canvas id="now1_chart"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card bg-dark">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4 id="pm25_num">50</h4>
-                                    <p class="mb-0">PM 2.5</p>
-                                    <small>細懸浮微粒 (μg/m<sup>3</sup>)</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <canvas id="chart_pm25"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4 id="pm10_num">100</h4>
-                                    <p class="mb-0">PM 10</p>
-                                    <small>懸浮微粒 (μg/m<sup>3</sup>)</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <canvas id="chart_pm10"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
         
@@ -93,7 +64,7 @@
                             <div class="card-header">
                                 <div class="row justify-content-between">
                                     <div class="col-4">
-                                        <h5 style="display: inline;">空氣品質 - 懸浮微粒</h5>
+                                        <h5 style="display: inline;" id="line_title">空氣品質 - 懸浮微粒</h5>
                                     </div>
                                     
                                     <div class="col-5 ">
@@ -106,33 +77,33 @@
                                                     <form class="px-2">
                                                         
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_pm_today" name="customRadio_pm" class="custom-control-input" value="today" CHECKED>
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_pm_today">
+                                                            <input type="radio" id="customRadio_today" name="customRadio" class="custom-control-input" value="today" CHECKED>
+                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_today">
                                                                 <span>今天</span>
-                                                                <span class="text-muted" id="date_pm_today">10/25</span>
+                                                                <span class="text-muted" id="date_today">10/25</span>
                                                             </label>
                                                         </div>
                                         
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_pm_yesterday" name="customRadio_pm" class="custom-control-input" value="yesterday">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_pm_yesterday">
+                                                            <input type="radio" id="customRadio_yesterday" name="customRadio" class="custom-control-input" value="yesterday">
+                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_yesterday">
                                                                 <span>昨天</span>
-                                                                <span class="text-muted" id="date_pm_yesterday">10/24</span>
+                                                                <span class="text-muted" id="date_yesterday">10/24</span>
                                                             </label>
                                                         </div>
 
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_pm_24hr" name="customRadio_pm" class="custom-control-input" value="24hr">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_pm_24hr">
+                                                            <input type="radio" id="customRadio_24hr" name="customRadio" class="custom-control-input" value="24hr">
+                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_24hr">
                                                                 <span>24小時</span>
-                                                                <span class="text-muted" id="date_pm_24hr">24hr</span>
+                                                                <span class="text-muted" id="date_24hr">24hr</span>
                                                             </label>
                                                         </div>
                                         
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_pm_custom" name="customRadio_pm" class="custom-control-input" value="custom">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_pm_custom">
-                                                                <input id="flatpickr_pm_date" class="flatpickr flatpickr-input" type="text" placeholder="選擇日期..." size="21">
+                                                            <input type="radio" id="customRadio_custom" name="customRadio" class="custom-control-input" value="custom">
+                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_custom">
+                                                                <input id="flatpickr_date" class="flatpickr flatpickr-input" type="text" placeholder="選擇日期..." size="21">
                                                             </label>
                                                         </div>
                                                     </form>
@@ -143,15 +114,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body" id="chart_pm_div">
-                                <canvas id="chart_pm" style="height:400px"></canvas>
+                            <div class="card-body" id="line_chart_div">
+                                <canvas id="line_chart" style="height:400px"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col" id="text">
                         使用PMSA003 G10 粉塵感測器。懸浮微粒泛指懸浮在空氣中的固體顆粒或液滴。
                         空氣動力學直徑（以下簡稱直徑）小於或等於10微米 (µm)的懸浮微粒稱為懸浮微粒
                         （PM10）；直徑小於或等於2.5微米的懸浮微粒稱為細懸浮微粒（PM2.5）。
@@ -171,213 +142,18 @@
 
         <!-- VOC -->
         <div class="tab-pane fade" id="pills-2" role="tabpanel">
-            <div>
-                <div class="row mt-3">
-                    <div class="col-md-4 mb-3">
-                        <div class="card bg-dark">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4 id="voc_num">20</h4>
-                                        <p class="mb-0">VOC</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <canvas id="chart_voc"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-        
-                <div class="row">
-                    <div class="col-lg-12 mb-3">
-                        <div class="card bg-dark">
-                            <div class="card-header">
-                                <div class="row justify-content-between">
-                                    <div class="col-4">
-                                        <h5 style="display: inline;">空氣品質 - VOC</h5>
-                                    </div>
-                                    
-                                    <div class="col-5 ">
-                                        <div class="row justify-content-end">
-                                            <div class="dropdown">
-                                                <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Dropdown button
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <form class="px-2">
-                                                        
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_voc_today" name="customRadio_voc" class="custom-control-input" value="today" CHECKED>
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_voc_today">
-                                                                <span>今天</span>
-                                                                <span class="text-muted" id="date_voc_today">10/25</span>
-                                                            </label>
-                                                        </div>
-                                        
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_voc_yesterday" name="customRadio_voc" class="custom-control-input" value="yesterday">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_voc_yesterday">
-                                                                <span>昨天</span>
-                                                                <span class="text-muted" id="date_voc_yesterday">10/24</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_voc_24hr" name="customRadio_voc" class="custom-control-input" value="24hr">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_voc_24hr">
-                                                                <span>24小時</span>
-                                                                <span class="text-muted" id="date_voc_24hr">24hr</span>
-                                                            </label>
-                                                        </div>
-                                        
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_voc_custom" name="customRadio_voc" class="custom-control-input" value="custom">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_voc_custom">
-                                                                <input id="flatpickr_voc_date" class="flatpickr flatpickr-input" type="text" placeholder="選擇日期..." size="21">
-                                                            </label>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body" id="chart_voc_div">
-                                <canvas id="chart_voc" style="height:400px"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        TGS2602氣體感測器對VOC(揮發性有機化合物)、酒精、氨氣的靈敏度高。
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right" style="color:#c1c1c1;">
-                        最後一筆數據時間：<span class="updated">2018/11/27 11:14</span>
-                    </div>
-                </div>
-                
-            </div>
-            
         </div>
 
         <!-- MQ9 -->
         <div class="tab-pane fade" id="pills-4" role="tabpanel">
-            <div>
-                <div class="row mt-3">
-                    <div class="col-md-4 mb-3">
-                        <div class="card bg-dark">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4 id="mq9_num">300</h4>
-                                        <p class="mb-0">MQ-9</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <canvas id="chart_mq9"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="row">
-                    <div class="col-lg-12 mb-3">
-                        <div class="card bg-dark">
-                            <div class="card-header">
-                                <div class="row justify-content-between">
-                                    <div class="col-4">
-                                        <h5 style="display: inline;">空氣品質 - MQ-9</h5>
-                                    </div>
-                                    
-                                    <div class="col-5 ">
-                                        <div class="row justify-content-end">
-                                            <div class="dropdown">
-                                                <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Dropdown button
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <form class="px-2">
-                                                        
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_mq9_today" name="customRadio_mq9" class="custom-control-input" value="today" CHECKED>
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_mq9_today">
-                                                                <span>今天</span>
-                                                                <span class="text-muted" id="date_mq9_today">10/25</span>
-                                                            </label>
-                                                        </div>
-                                        
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_mq9_yesterday" name="customRadio_mq9" class="custom-control-input" value="yesterday">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_mq9_yesterday">
-                                                                <span>昨天</span>
-                                                                <span class="text-muted" id="date_mq9_yesterday">10/24</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_mq9_24hr" name="customRadio_mq9" class="custom-control-input" value="24hr">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_mq9_24hr">
-                                                                <span>24小時</span>
-                                                                <span class="text-muted" id="date_mq9_24hr">24hr</span>
-                                                            </label>
-                                                        </div>
-                                        
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio_mq9_custom" name="customRadio_mq9" class="custom-control-input" value="custom">
-                                                            <label class="custom-control-label d-flex justify-content-between" for="customRadio_mq9_custom">
-                                                                <input id="flatpickr_mq9_date" class="flatpickr flatpickr-input" type="text" placeholder="選擇日期..." size="21">
-                                                            </label>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body" id="chart_mq9_div">
-                                <canvas id="chart_mq9" style="height:400px"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        MQ-9 氣體感測器對一氧化碳、甲烷、液化氣的靈敏度高。
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right" style="color:#c1c1c1;">
-                        最後一筆數據時間：<span class="updated">2018/11/27 11:14</span>
-                    </div>
-                </div>
-                
-            </div>
-            
         </div>
 
         <!-- MQ135 -->
         <div class="tab-pane fade" id="pills-3" role="tabpanel">
-            MQ135氣體感測器對氨氣、硫化物、苯系蒸汽的靈敏度高，對煙霧和其他有害的監測也很理想。
         </div>
 
     </div>
     
-
 </div>
 
 {% endblock main %}
@@ -386,13 +162,9 @@
 {% block script %}
 {{ block.super }}
 <script>
-    
-    //------------------
     var airData = {{airData|safe}};
-
     var air_date_list=[], pm1_list=[], pm25_list=[], pm10_list=[];
-    var voc_list=[];
-    
+    var voc_list=[], mq9_list=[], mq135_list=[];
     
     var Now = new Date();
     var Today = new Date(Now.getTime());
@@ -411,8 +183,8 @@
     var Date_B = new Date(Tomorrow.getTime());
 
     window.onload = function() {
-        $("#date_pm_today").html((Today.getMonth()+1)+"/"+Today.getDate());
-        $("#date_pm_yesterday").html((Yesterday.getMonth()+1)+"/"+Yesterday.getDate());
+        $("#date_today").html((Today.getMonth()+1)+"/"+Today.getDate());
+        $("#date_yesterday").html((Yesterday.getMonth()+1)+"/"+Yesterday.getDate());
         updateData(Today, Tomorrow);
         updateChartNow();
         updateChartLine();
@@ -421,7 +193,7 @@
 
     var Today_format = Today.getFullYear() + "-" + (Today.getMonth() + 1) + "-" + Today.getDate();
     var Day3_format = Today.getFullYear() + "-" + (Today.getMonth() + 1) + "-" + (Today.getDate()-3);
-    const fp_pm = flatpickr("#flatpickr_pm_date", {
+    const fp = flatpickr("#flatpickr_date", {
         locale: "zh",
         mode: "range",
         maxDate: "today",
@@ -432,19 +204,17 @@
             Date_A = selectedDates[0];
             Date_B = selectedDates[1];
             Date_B.setDate(Date_B.getDate()+1);
-            $("input[name=customRadio_pm][value='custom']").attr('checked',true);
+            $("input[name=customRadio][value='custom']").attr('checked',true);
             //calcDate(Date_A, Date_B);
             updateData(Date_A, Date_B);
             updateChartLine();
         }
     });
     
-    var customRadio_pm = $("input[name=customRadio_pm]:radio");
-    customRadio_pm.change(function () {
+    var customRadio = $("input[name=customRadio]:radio");
+    customRadio.change(function () {
         console.log($(this).val())
         if($(this).val() == "today"){
-            console.log(Today);
-            console.log(Tomorrow);
             updateData(Today, Tomorrow);
             updateChartLine();
         }
@@ -468,7 +238,7 @@
     function updateData(dateA, dateB) {
         var temp_year;
         air_date_list=[], pm1_list=[], pm25_list=[], pm10_list=[];
-        voc_list=[];
+        voc_list=[], mq9_list=[], mq135_list=[];
         
         for (var i = 0; i < airData.length; i++) {
             var datetime = new Date(airData[i].creation_date)
@@ -492,6 +262,9 @@
                 pm1_list.push(airData[i].pm1);
                 pm25_list.push(airData[i].pm25);
                 pm10_list.push(airData[i].pm10);
+                voc_list.push(airData[i].voc);
+                mq9_list.push(airData[i].mq9);
+                mq135_list.push(airData[i].mq135);
             }
         }
 
@@ -563,7 +336,7 @@
     }
 
 
-    function updateChartNow() {
+    function updateChartNow(string) {
         var temp_date = new Date(airData[airData.length-1].creation_date)
         var update_time = temp_date.getFullYear() +"/"+
                             ('0'+ (temp_date.getMonth()+1)).substr(-2) +"/"+
@@ -578,9 +351,9 @@
         var pm1_now = airData_now.pm1;
         var pm25_now = airData_now.pm25;
         var pm10_now = airData_now.pm10
-        $("#pm1_num").html(pm1_now);
-        $("#pm25_num").html(pm25_now);
-        $("#pm10_num").html(pm10_now);
+        $("#now1_num").html(pm1_now);
+        $("#now2_num").html(pm25_now);
+        $("#now3_num").html(pm10_now);
 
         var pm25_color =(pm25_now<12 && "#90EE90") || (pm25_now<24 && "#00FF00") ||
                     (pm25_now<36 && "#008000") || (pm25_now<42 && "#FFFF00") ||
@@ -601,26 +374,19 @@
         }
 
 
-        var ctx_pm1 = document.getElementById("chart_pm1");
-        var config_pm1 = createConfigNow("PM 0.1", [pm1_now,100-pm1_now], "rgb(255, 255, 255)");
-        new Chart(ctx_pm1, config_pm1);
+        var ctx_now1 = document.getElementById("now1_chart");
+        var config_now1 = createConfigNow("PM 0.1", [pm1_now,100-pm1_now], "rgb(255, 255, 255)");
+        new Chart(ctx_now1, config_now1);
 
-        var ctx_pm25 = document.getElementById("chart_pm25");
-        var config_pm25 = createConfigNow("PM 2.5", [pm25_now,100-pm25_now], pm25_color);
-        new Chart(ctx_pm25, config_pm25);
-
-        var ctx_pm10 = document.getElementById("chart_pm10");
-        var config_pm10 = createConfigNow("PM 1.0", [pm10_now,120-pm10_now], pm10_color);
-        new Chart(ctx_pm10, config_pm10);
     }
     
     function updateChartLine() {
         // -----懸浮微粒-----
-        $('#chart_pm').remove();
-        $('#chart_pm_div').append('<canvas id="chart_pm" style="height:400px"></canvas>');
+        $('#line_chart').remove();
+        $('#line_chart_div').append('<canvas id="line_chart" style="height:400px"></canvas>');
 
-        var ctx_pm = document.getElementById("chart_pm");
-        var datasets_pm = 
+        var ctx_now = document.getElementById("line_chart");
+        var datasets_now = 
                 [{
                     label: "pm 1.0",
                     data: pm1_list,
@@ -646,34 +412,14 @@
                     lineTension: 0,
                     pointRadius: 1,
                 }];
-        var config_pm = createConfigLine(air_date_list, datasets_pm);
-        new Chart(ctx_pm, config_pm);
+        var config_now = createConfigLine(air_date_list, datasets_now);
+        new Chart(ctx_now, config_now);
         
 
-
-        // -----VOC-----
-        var voc_now = voc_list[voc_list.length - 1];
-        $("#voc_num").html(voc_now);
-
-        var ctx_voc = document.getElementById("chart_voc");
-        var config_voc = createConfigNow("VOC", [voc_now,100-voc_now], "rgb(255, 255, 255)");
-        new Chart(ctx_voc, config_voc);
-        
-
-        var ctx_voc2 = document.getElementById("chart_voc2");
-        var datasets_voc2 = 
-                [{
-                    label: "VOC",
-                    data: voc_list,
-                    backgroundColor: "rgba(50, 255, 100, 0.3)",
-                    borderColor: "rgba(50,255,100,1)",
-                    fill: "start",
-                    lineTension: 0,
-                }];
-        var config_voc2 = createConfigLine(air_date_list, datasets_voc2);
-        new Chart(ctx_voc2, config_voc2);
 
     }
+
+
 
 
 

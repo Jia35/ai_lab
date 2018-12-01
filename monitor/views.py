@@ -55,12 +55,16 @@ def test(request):
 def upload_air(request):
     if request.method == 'POST':
         req = json.loads(request.body)
+        humidity = req.get('H')
+        temperature = req.get('T')
         pm1 = req.get('PM1_ATMO')
         pm25 = req.get('PM25_ATMO')
         pm10 = req.get('PM10_ATMO')
+        tgs2602 = req.get('VOC')
         mq9 = req.get('MQ9')
         mq135 = req.get('MQ135')
-        airData = AirData(pm1=pm1, pm25=pm25, pm10=pm10, mq9=mq9, mq135=mq135)
+        airData = AirData(humidity=humidity, temperature=temperature, pm1=pm1,
+                    pm25=pm25, pm10=pm10, tgs2602=tgs2602, mq9=mq9, mq135=mq135)
         airData.save()
         return HttpResponse('upload air data Success!')
     return HttpResponse('upload air data Fail!')
