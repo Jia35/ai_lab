@@ -1,0 +1,96 @@
+{% extends 'monitor/aqm.html' %}
+
+
+{% block aqm_nav5 %}
+<a class="nav-link active" href="{% url 'aqm_th' %}" title="對於許多空氣感測元件，溫溼度是個重要的影響因素。">
+    溫溼度
+</a>
+{% endblock aqm_nav5 %}
+
+
+{% block aqm_now %}
+{{ block.super }}
+<div class="card bg-dark">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 id="now2_num">25</h4>
+                <p class="mb-0" id="now2_title">PM 1.0</p>
+                <small id="now2_txt">(μg/m<sup>3</sup>)</small>
+            </div>
+            <div class="col-md-6">
+                <canvas id="now2_chart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock aqm_now %}
+
+
+{% block script %}
+{{ block.super }}
+<script>
+    $("#now1_title").html("溫度");
+    $("#now1_txt").html("°C");
+    $("#now2_title").html("濕度");
+    $("#now2_txt").html("%");
+    $("#line_title").html("空氣品質 - 溫溼度");
+    $("#text").html("對於許多空氣感測元件，溫溼度是個重要的影響因素。");
+
+    
+
+    function updateChartNow(string) {
+        var temp_date = new Date(airData[airData.length-1].creation_date)
+        var update_time = temp_date.getFullYear() +"/"+
+                            ('0'+ (temp_date.getMonth()+1)).substr(-2) +"/"+
+                            ('0'+ temp_date.getDate()).substr(-2) +" "+
+                            ('0'+ temp_date.getHours()).substr(-2) +":"+
+                            ('0'+ temp_date.getMinutes()).substr(-2);
+        $(".updated").html(update_time);
+
+        var airData_now = airData[airData.length-1];
+
+        var t_now = airData_now.temperature;
+        var h_now = airData_now.humidity;
+        $("#now1_num").html(t_now);
+        $("#now2_num").html(h_now);
+
+        var ctx_now1 = document.getElementById("now1_chart");
+        var config_now1 = createConfigNow("溫度", [t_now, 60-t_now], "rgb(255, 255, 255)");
+        new Chart(ctx_now1, config_now1);
+
+        var ctx_now2 = document.getElementById("now2_chart");
+        var config_now2 = createConfigNow("濕度", [h_now, 100-h_now], "rgb(255, 255, 255)");
+        new Chart(ctx_now2, config_now2);
+    }
+    
+    function updateChartLine() {
+        $('#line_chart').remove();
+        $('#line_chart_div').append('<canvas id="line_chart" style="height:400px"></canvas>');
+
+        var ctx_now = document.getElementById("line_chart");
+        var datasets_now = 
+                [{
+                    label: "溫度",
+                    data: t_list,
+                    backgroundColor: "rgba(50, 255, 100, 0.3)",
+                    borderColor: "rgba(50,255,100,1)",
+                    fill: "start",
+                    lineTension: 0,
+                    pointRadius: 1,
+                },{
+                    label: "濕度",
+                    data: h_list,
+                    backgroundColor: "rgba(50, 150, 255, 0.3)",
+                    borderColor: "rgba(50,150,255,1)",
+                    fill: "start",
+                    lineTension: 0,
+                    pointRadius: 1,
+                }];
+        var config_now = createConfigLine(air_date_list, datasets_now);
+        new Chart(ctx_now, config_now);
+        
+    }
+    
+</script>
+{% endblock script %}

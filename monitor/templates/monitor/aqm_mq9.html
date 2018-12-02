@@ -1,0 +1,60 @@
+{% extends 'monitor/aqm.html' %}
+
+
+{% block aqm_nav3 %}
+<a class="nav-link active" href="{% url 'aqm_mq9' %}" title="MQ-9 氣體感測器對一氧化碳、甲烷、液化氣的靈敏度高。">
+    MQ-9
+</a>
+{% endblock aqm_nav3 %}
+
+
+{% block script %}
+{{ block.super }}
+<script>
+    $("#now1_title").html("MQ 9");
+    $("#now1_txt").html("");
+    $("#line_title").html("空氣品質 - MQ-9");
+    $("#text").html("MQ-9 氣體感測器對一氧化碳、甲烷、液化氣的靈敏度高。");
+    
+
+    function updateChartNow(string) {
+        var temp_date = new Date(airData[airData.length-1].creation_date)
+        var update_time = temp_date.getFullYear() +"/"+
+                            ('0'+ (temp_date.getMonth()+1)).substr(-2) +"/"+
+                            ('0'+ temp_date.getDate()).substr(-2) +" "+
+                            ('0'+ temp_date.getHours()).substr(-2) +":"+
+                            ('0'+ temp_date.getMinutes()).substr(-2);
+        $(".updated").html(update_time);
+
+        var airData_now = airData[airData.length-1];
+
+        var mq9_now = airData_now.mq9;
+        $("#now1_num").html(mq9_now);
+
+        var ctx_now1 = document.getElementById("now1_chart");
+        var config_now1 = createConfigNow("MQ 9", [mq9_now, 4096-mq9_now], "rgb(255, 255, 255)");
+        new Chart(ctx_now1, config_now1);
+    }
+    
+    function updateChartLine() {
+        $('#line_chart').remove();
+        $('#line_chart_div').append('<canvas id="line_chart" style="height:400px"></canvas>');
+
+        var ctx_now = document.getElementById("line_chart");
+        var datasets_now = 
+                [{
+                    label: "mq 9",
+                    data: mq9_list,
+                    backgroundColor: "rgba(50, 255, 100, 0.3)",
+                    borderColor: "rgba(50,255,100,1)",
+                    fill: "start",
+                    lineTension: 0,
+                    pointRadius: 1,
+                }];
+        var config_now = createConfigLine(air_date_list, datasets_now);
+        new Chart(ctx_now, config_now);
+        
+    }
+    
+</script>
+{% endblock script %}

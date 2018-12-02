@@ -26,6 +26,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('aqm/', aqm, name='aqm'),
+    path('aqm/pm', aqm, name='aqm_pm'),
+    path('aqm/voc', aqm, name='aqm_voc'),
+    path('aqm/mq9', aqm, name='aqm_mq9'),
+    path('aqm/mq135', aqm, name='aqm_mq135'),
+    path('aqm/th', aqm, name='aqm_th'),
+
     path('aquarium/', aquarium, name='aquarium'),
     path('test/', test, name='test'),
 

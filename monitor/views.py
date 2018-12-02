@@ -32,7 +32,19 @@ def aqm(request):
         i["creation_date"] = timezone.localtime(i["creation_date"])
 
     airData = json.dumps(date_time, cls=DjangoJSONEncoder)
+    print(request.path)
+    if (request.path == "/aqm/pm"):
+        return render(request, 'monitor/aqm_pm.html', locals())
+    if (request.path == "/aqm/voc"):
+        return render(request, 'monitor/aqm_voc.html', locals())
+    elif (request.path == "/aqm/mq9"):
+        return render(request, 'monitor/aqm_mq9.html', locals())
+    elif (request.path == "/aqm/mq135"):
+        return render(request, 'monitor/aqm_mq135.html', locals())
+    elif (request.path == "/aqm/th"):
+        return render(request, 'monitor/aqm_th.html', locals())
     return render(request, 'monitor/aqm.html', locals())
+
 
 # 水族生態
 def aquarium(request):
