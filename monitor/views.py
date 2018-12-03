@@ -55,6 +55,7 @@ def aquarium(request):
         else:
             res = requests.get('http://140.125.32.123/motor/stop_find.php')
         print(res.text)
+    #res_get = requests.get('http://140.125.32.123:8082/?action=stream', auth=('es715', 'es715'), timeout=0.1)
     return render(request, 'monitor/aquarium.html', locals())
 
 

@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
-    <link rel="shortcut icon" href="/static/images/favicon.ico">
     <!-- flatpickr.js v4.5.2 -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/flatpickr.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/themes/dark.css">
     
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+    <!-- <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" /> -->
 
+    
     <style>
     body {
         font-family : "MS Sans Serif", "微軟正黑體", "新細明體", "細明體" ;
@@ -56,7 +59,10 @@
 
 <body id="body-bg">
     <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #30619F;">
-        <a class="navbar-brand" href="{% url 'home' %}">AI Lab</a>
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="/static/images/favicon0.png" width="30" height="30" class="d-inline-block align-top">
+            AI Lab
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -70,7 +76,7 @@
                 {% endblock nav1 %}
                 {% block nav2 %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'aqm' %}">空氣品質監測</a>
+                        <a class="nav-link" href="{% url 'aqm_pm' %}">空氣品質監測</a>
                     </li>
                 {% endblock nav2 %}
                 {% block nav3 %}

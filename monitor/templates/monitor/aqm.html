@@ -4,7 +4,7 @@
 
 {% block nav2 %}
     <li class="nav-item active">
-        <a class="nav-link" href="{% url 'aqm' %}"><strong>空氣品質監測</strong></a>
+        <a class="nav-link" href="{% url 'aqm_pm' %}"><strong>空氣品質監測</strong></a>
     </li>
 {% endblock nav2 %}
 
@@ -78,27 +78,30 @@
                 <div class="card bg-dark">
                     <div class="card-header">
                         <div class="row justify-content-between">
-                            <div class="col-4">
+                            <div class="col-7">
                                 <h5 style="display: inline;" id="line_title">空氣品質 - 懸浮微粒</h5>
                             </div>
                             
-                            <div class="col-5 ">
+                            <div class="col-5">
                                 <div class="row justify-content-end">
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Dropdown button
+                                    <div class="dropdown" id="dropdown">
+                                        <button class="btn btn-outline-warning btn-sm dropdown-toggle" id="dropdown_btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            近100筆
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <form class="px-2">
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio mb-2">
                                                     <input type="radio" id="customRadio_record" name="customRadio" class="custom-control-input" value="record" CHECKED>
                                                     <label class="custom-control-label d-flex justify-content-between" for="customRadio_record">
-                                                        <span>近100筆</span>
-                                                        <span class="text-muted" id="date_record">100筆</span>
+                                                        <span>最近
+                                                            <input type="text" id="input_record" value="100" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="4" size="3">
+                                                            筆
+                                                        </span>
+                                                        <span class="text-muted" id="date_record">筆數</span>
                                                     </label>
                                                 </div>
 
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio mb-2">
                                                     <input type="radio" id="customRadio_today" name="customRadio" class="custom-control-input" value="today">
                                                     <label class="custom-control-label d-flex justify-content-between" for="customRadio_today">
                                                         <span>今天</span>
@@ -106,7 +109,7 @@
                                                     </label>
                                                 </div>
                                 
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio mb-2">
                                                     <input type="radio" id="customRadio_yesterday" name="customRadio" class="custom-control-input" value="yesterday">
                                                     <label class="custom-control-label d-flex justify-content-between" for="customRadio_yesterday">
                                                         <span>昨天</span>
@@ -114,7 +117,7 @@
                                                     </label>
                                                 </div>
 
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio mb-2">
                                                     <input type="radio" id="customRadio_24hr" name="customRadio" class="custom-control-input" value="24hr">
                                                     <label class="custom-control-label d-flex justify-content-between" for="customRadio_24hr">
                                                         <span>24小時</span>
@@ -189,8 +192,7 @@
     window.onload = function() {
         $("#date_today").html((Today.getMonth()+1)+"/"+Today.getDate());
         $("#date_yesterday").html((Yesterday.getMonth()+1)+"/"+Yesterday.getDate());
-        //updateData(Today, Tomorrow);
-        updateRecord(100);
+        updateRecord($("#input_record").val());
         updateChartNow();
         updateChartLine();
 
@@ -209,8 +211,8 @@
             Date_A = selectedDates[0];
             Date_B = selectedDates[1];
             Date_B.setDate(Date_B.getDate()+1);
-            $("input[name=customRadio][value='custom']").attr('checked',true);
-            //calcDate(Date_A, Date_B);
+            //$("input[name=customRadio][value='custom']").attr('checked',true);
+            $("#customRadio_custom").prop("checked", true).trigger("click");
             updateData(Date_A, Date_B);
             updateChartLine();
         }
@@ -238,11 +240,37 @@
             updateChartLine();
         }
         else if($(this).val() == "record"){
-            updateRecord(100);
+            updateRecord($("#input_record").val());
             updateChartLine();
         }
         
     });
+    
+    $('#input_record').change(function() {
+        $("#customRadio_record").prop("checked", true).trigger("click");
+        updateRecord($("#input_record").val());
+        updateChartLine();
+    });
+
+    $('#dropdown').on('hide.bs.dropdown', function () {
+        var customRadio_val = $('input[name=customRadio]:checked').val();
+        
+        if(customRadio_val == "today"){
+            $("#dropdown_btn").html("今天");
+        }
+        else if(customRadio_val == "yesterday"){
+            $("#dropdown_btn").html("昨天");
+        }
+        else if(customRadio_val == "24hr"){
+            $("#dropdown_btn").html("近24小時");
+        }
+        else if(customRadio_val == "custom"){
+            $("#dropdown_btn").html("自訂日期範圍");
+        }
+        else if(customRadio_val == "record"){
+            $("#dropdown_btn").html("近"+$("#input_record").val()+"筆");
+        }
+    })
 
     function updateData(dateA, dateB) {
         var temp_year;
