@@ -76,35 +76,33 @@
         $("#now2_num").html(pm25_now);
         $("#now3_num").html(pm10_now);
 
-        var pm25_color =(pm25_now<12 && "#90EE90") || (pm25_now<24 && "#00FF00") ||
-                    (pm25_now<36 && "#008000") || (pm25_now<42 && "#FFFF00") ||
-                    (pm25_now<48 && "#FFCC66") || (pm25_now<54 && "#FFA500") ||
-                    (pm25_now<59 && "#FFA500") || (pm25_now<65 && "#FFA500") ||
-                    (pm25_now<71 && "#FFA500") || "#FF00FF";
-        if (pm25_now > 100) {
-            pm25_now = 100
+        var pm25_color =(pm25_now<15 && "#00E800") || (pm25_now<35 && "#FFFF00") ||
+                    (pm25_now<54 && "#FF7E00") || (pm25_now<150 && "#FF0000") ||
+                    (pm25_now<250 && "#8F3F97") || (pm25_now<350 && "#7E0023") ||
+                    "#7E0023";
+        if (pm25_now > 300) {
+            pm25_now = 300
         }
         
-        var pm10_color =(pm10_now<17 && "#90EE90") || (pm10_now<34 && "#00FF00") ||
-                    (pm10_now<51 && "#008000") || (pm10_now<59 && "#FFFF00") ||
-                    (pm10_now<67 && "#FFCC66") || (pm10_now<76 && "#FFA500") ||
-                    (pm10_now<84 && "#FFA500") || (pm10_now<92 && "#FFA500") ||
-                    (pm10_now<101 && "#FFA500") || "#FF00FF";
-        if (pm10_now > 120) {
-            pm10_now = 120
+        var pm10_color =(pm10_now<55 && "#00E800") || (pm10_now<126 && "#FFFF00") ||
+                    (pm10_now<255 && "#FF7E00") || (pm10_now<355 && "#FF0000") ||
+                    (pm10_now<425 && "#8F3F97") || (pm10_now<505 && "#7E0023") ||
+                    "#7E0023";
+        if (pm10_now > 450) {
+            pm10_now = 450
         }
 
 
         var ctx_now1 = document.getElementById("now1_chart");
-        var config_now1 = createConfigNow("PM 0.1", [pm1_now, 100-pm1_now], "rgb(255, 255, 255)");
+        var config_now1 = createConfigNow("PM 0.1", [pm1_now, 150-pm1_now], "rgb(255, 255, 255)");
         new Chart(ctx_now1, config_now1);
 
         var ctx_now2 = document.getElementById("now2_chart");
-        var config_now2 = createConfigNow("PM 2.5", [pm25_now, 100-pm25_now], pm25_color);
+        var config_now2 = createConfigNow("PM 2.5", [pm25_now, 300-pm25_now], pm25_color);
         new Chart(ctx_now2, config_now2);
 
         var ctx_now3 = document.getElementById("now3_chart");
-        var config_now3 = createConfigNow("PM 1.0", [pm10_now, 120-pm10_now], pm10_color);
+        var config_now3 = createConfigNow("PM 1.0", [pm10_now, 450-pm10_now], pm10_color);
         new Chart(ctx_now3, config_now3);
 
     }
